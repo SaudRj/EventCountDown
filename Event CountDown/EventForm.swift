@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct Event: Identifiable, Comparable {
+struct Event: Identifiable, Comparable, Hashable {
     var id: UUID = UUID()
-    var title: String
-    var date: Date
-    var color: Color
+    var title: String = ""
+    var date: Date = Date()
+    var color: Color = Color.black
     
     static func < (lhs: Event, rhs: Event) -> Bool {
         lhs.date < rhs.date
@@ -85,6 +85,11 @@ struct EventForm: View {
                        })
                        .disabled(eventFromRootView.title.isEmpty ? true : false)
                }
+               .onAppear(perform: {
+                   title = eventFromRootView.title
+                   date = eventFromRootView.date
+                   color = eventFromRootView.color
+               })
             }
         }
     }

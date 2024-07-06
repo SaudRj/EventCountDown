@@ -25,6 +25,10 @@ struct EventView: View {
                     })
                 
             }
+            .navigationDestination(for: Event.self) {
+                event in
+                EventForm(arrEvent: $arrEvent, currentMode: .edit(event))
+            }
             .navigationTitle("Events")
             .toolbar{
                 NavigationLink(destination: EventForm(arrEvent: $arrEvent, currentMode: .add))
